@@ -5,11 +5,11 @@
     <hr class="text-white"/>
 
     <div class="list-group list-reset">
-        <a *ngFor="let item of historial"
+        <a *ngFor="let item of historialBusqueda"
             href="#"
             class="list-group-item list-group-item-action text-center"
         >
-            {{ item }}
+            {{ item | titlecase }}
         </a>
     </div>
 </div>

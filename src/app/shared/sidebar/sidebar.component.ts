@@ -7,7 +7,7 @@ import { GifsService } from '../../gifs/services/gifs.service';
 })
 export class SidebarComponent {
 
-  get historial() {
+  get historialBusqueda() {
     return this.gifsService.historial;
   }
 
