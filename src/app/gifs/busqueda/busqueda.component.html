@@ -1,2 +1,10 @@
+
 <h5>Buscar:</h5>
-<input type="text" class="form-control" placeholder="Buscar Gifts...">
+<input 
+    type="text" 
+    class="form-control" 
+    placeholder="Buscar Gifts..."
+    (keyup.enter)="buscar()"   
+    #txtBuscar
+>
+<!-- keyup.enter, osea se active solo con enter. Y envie solo la referencia al txtBuscar.value a la funcion  -->
