@@ -9,6 +9,7 @@ export class GifsService {
 
   private apiKey:string = 'EcwRhdXQ6uUOcchtBYDzucMfRnwd46Hy';
   private _historial: string[] = [];
+  
 
   public resultados:Gif[] = [];
 
@@ -17,7 +18,15 @@ export class GifsService {
     return [ ...this._historial ];
   }
 
-  constructor( private http:HttpClient ) {}
+  constructor( private http:HttpClient ) {
+    this._historial = JSON.parse(localStorage.getItem('historial')!) || [];
+    this.resultados = JSON.parse(localStorage.getItem('resultados')!) || [];
+
+    // if( localStorage.getItem('historial') ){
+    //   this._historial = JSON.parse( localStorage.getItem('historial')! );
+    // }
+
+  }
 
 
   buscarGifs( query:string = '' ){
@@ -27,13 +36,15 @@ export class GifsService {
     if( !this._historial.includes(query) ){ //si no esta inserto, sino no hago nada
       this._historial.unshift( query ); //ingreso un valor al comienzo
       this._historial = this._historial.splice(0,10) //siempre estoy cortando el array de 0 a 10
+
+      localStorage.setItem('historial', JSON.stringify( this._historial ) );
     }
 
   
     this.http.get<SearchGifsResponse>(`https://api.giphy.com/v1/gifs/search?api_key=EcwRhdXQ6uUOcchtBYDzucMfRnwd46Hy&q=${ query }&limit=10`)
       .subscribe( ( resp ) => {
-        console.log( resp.data );
         this.resultados = resp.data;
+        localStorage.setItem('resultados', JSON.stringify( this.resultados ) );
       })
   }
 
